@@ -176,6 +176,17 @@
 
     /* SUBMIT */
     .submit-section { padding: 0 16px 16px; }
+    .btn-copy {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 12px;
+      background: var(--gold-light); color: var(--brown);
+      border: 1.5px solid var(--gold); border-radius: 10px;
+      font-family: var(--font-body); font-size: 14px; font-weight: 700;
+      cursor: pointer; margin-bottom: 10px;
+      transition: all 0.2s;
+    }
+    .btn-copy:hover { background: var(--gold); color: var(--white); }
+    .btn-copy.copied { background: #e8f5e9; border-color: #a5d6a7; color: #2e7d32; }
     .btn-zalo {
       display: flex; align-items: center; justify-content: center; gap: 8px;
       width: 100%; padding: 14px;
@@ -284,7 +295,7 @@
             </div>
             <div class="order-item" data-id="3" data-name="Nạm, Chả" data-price="60000" data-emoji="🥩">
               <div class="oi-emoji">🥩</div>
-              <div class="oi-info"><div class="oi-name">Nạm, Chả</div><div class="oi-desc">Nạm mềm, chả cua thơm</div></div>
+              <div class="oi-info"><div class="oi-name">Nạm, Chả</div><div class="oi-desc">Nạm mềm, chả heo thơm</div></div>
               <div class="oi-price">60k</div>
               <div class="oi-qty">
                 <button class="qty-btn minus" onclick="changeQty(event,3,-1)">−</button>
@@ -545,14 +556,29 @@
           </div>
 
           <div class="submit-section" id="submit-section" style="display:none">
-            <a id="btn-zalo" href="#" class="btn-zalo disabled" onclick="submitOrder(event,'zalo')">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.524 3.657 1.435 5.163L2 22l4.956-1.424A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
-              Gửi đơn qua Zalo
+
+            <!-- Order preview box -->
+            <div id="order-preview" style="display:none;background:var(--cream-dark);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:12px;color:var(--text-mid);white-space:pre-wrap;line-height:1.7;max-height:160px;overflow-y:auto;font-family:monospace"></div>
+
+            <button id="btn-copy" class="btn-copy disabled" onclick="copyOrder()">
+              📋 Sao chép đơn hàng
+            </button>
+
+            <a id="btn-zalo" href="https://zalo.me/0349171873" target="_blank" class="btn-zalo disabled" onclick="return handleZalo(event)">
+              <svg width="18" height="18" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#0068FF"/><text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="22" font-weight="bold" font-family="Arial">Z</text></svg>
+              Mở Zalo nhắn Cô Hạnh
             </a>
-            <a id="btn-sms" href="#" class="btn-sms disabled" onclick="submitOrder(event,'sms')">
+
+            <a id="btn-sms" href="#" class="btn-sms disabled" onclick="submitSMS(event)">
               📱 Gửi đơn qua SMS
             </a>
-            <p class="submit-note">Đơn hàng sẽ gửi thẳng đến Cô Hạnh<br>SĐT: 0349 171 873 · Hotline: 0326 611 510</p>
+
+            <div id="copy-hint" style="display:none;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:8px;padding:10px 12px;margin-top:8px;font-size:12px;color:#2e7d32;line-height:1.6">
+              ✅ <strong>Đã sao chép đơn hàng!</strong><br>
+              Bấm <strong>"Mở Zalo"</strong> → dán vào ô chat → gửi cho Cô Hạnh.
+            </div>
+
+            <p class="submit-note">📞 0349 171 873 – Cô Hạnh &nbsp;·&nbsp; 0326 611 510 – Hotline</p>
           </div>
 
         </div>
@@ -655,6 +681,12 @@
       const hasItems = ids.length > 0;
       document.getElementById('btn-zalo').classList.toggle('disabled', !hasItems);
       document.getElementById('btn-sms').classList.toggle('disabled', !hasItems);
+      document.getElementById('btn-copy').classList.toggle('disabled', !hasItems);
+      if (!hasItems) {
+        document.getElementById('copy-hint').style.display = 'none';
+        document.getElementById('order-preview').style.display = 'none';
+        lastMsg = '';
+      }
     }
 
     function removeItem(id) {
@@ -714,24 +746,72 @@
       return msg;
     }
 
-    // ── SUBMIT ──
-    function submitOrder(e, method) {
+    // ── COPY ORDER ──
+    let lastMsg = '';
+
+    function copyOrder() {
+      const msg = buildMessage();
+      if (!msg) return;
+      lastMsg = msg;
+
+      // Show preview
+      document.getElementById('order-preview').style.display = 'block';
+      document.getElementById('order-preview').textContent = msg;
+
+      // Copy to clipboard
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(msg).then(() => {
+          showCopied();
+        }).catch(() => fallbackCopy(msg));
+      } else {
+        fallbackCopy(msg);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus(); ta.select();
+      try { document.execCommand('copy'); showCopied(); } catch(e) {}
+      document.body.removeChild(ta);
+    }
+
+    function showCopied() {
+      const btn = document.getElementById('btn-copy');
+      btn.textContent = '✅ Đã sao chép!';
+      btn.classList.add('copied');
+      document.getElementById('copy-hint').style.display = 'block';
+      showToast('✅ Đã sao chép đơn hàng!');
+      setTimeout(() => {
+        btn.innerHTML = '📋 Sao chép đơn hàng';
+        btn.classList.remove('copied');
+      }, 4000);
+    }
+
+    function handleZalo(e) {
+      // If not yet copied, copy first then open Zalo
+      const msg = buildMessage();
+      if (!msg) { e.preventDefault(); return false; }
+      if (!lastMsg) {
+        e.preventDefault();
+        copyOrder();
+        setTimeout(() => window.open('https://zalo.me/0349171873', '_blank'), 600);
+        return false;
+      }
+      // Already copied — let href open Zalo
+      return true;
+    }
+
+    function submitSMS(e) {
       e.preventDefault();
       const msg = buildMessage();
       if (!msg) return;
-
-      const phone = '0349171873';
       const encoded = encodeURIComponent(msg);
-
-      if (method === 'zalo') {
-        // Zalo deep link
-        window.open(`https://zalo.me/${phone}?message=${encoded}`, '_blank');
-      } else {
-        // SMS fallback
-        window.open(`sms:${phone}?body=${encoded}`, '_blank');
-      }
-
-      showToast('✅ Đang mở ' + (method === 'zalo' ? 'Zalo' : 'SMS') + '...');
+      window.open(`sms:0349171873?body=${encoded}`, '_blank');
+      showToast('📱 Đang mở SMS...');
     }
 
     function showToast(msg) {
