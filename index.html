@@ -27,6 +27,25 @@
     pointer-events: none;
   }
 
+
+  /* Logo image */
+  .nav-logo-img {
+    width: 48px; height: 48px;
+    object-fit: cover;
+    border-radius: 10px;
+    flex-shrink: 0;
+    border: 1.5px solid rgba(245,166,35,.3);
+    box-shadow: 0 0 12px rgba(245,166,35,.2);
+  }
+  .home-logo {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 10px;
+  }
+  .nav-logo-text {
+    display: flex; flex-direction: column; line-height: 1.1;
+  }
   /* NAV */
   .home-nav {
     position: fixed;
@@ -94,6 +113,18 @@
     z-index: 1;
   }
 
+  .hero-logo-wrap {
+    margin-bottom: 24px;
+    opacity: 0; animation: fadeUp .8s ease .1s forwards;
+  }
+  .hero-logo-img {
+    width: 130px; height: 130px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin: 0 auto;
+    border: 2px solid rgba(245,166,35,.35);
+    box-shadow: 0 0 40px rgba(245,166,35,.25), 0 0 80px rgba(232,66,10,.1);
+  }
   /* Radial glow behind title */
   .hero-glow {
     position: absolute;
@@ -563,8 +594,11 @@
 <!-- NAV -->
 <nav class="home-nav">
   <a href="index.html" class="home-logo">
-    <span class="home-logo-sub">Bún Bò</span>
-    <span class="home-logo-main">Cô Hạnh</span>
+    <img src="images/logo.png" alt="Bún Bò Cô Hạnh" class="nav-logo-img">
+    <div class="nav-logo-text">
+      <span class="home-logo-sub">Bún Bò</span>
+      <span class="home-logo-main">Cô Hạnh</span>
+    </div>
   </a>
   <button class="hamburger-home" id="hbg" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -590,6 +624,9 @@
   </div>
 
   <div class="hero-content">
+    <div class="hero-logo-wrap">
+      <img src="images/logo.png" alt="Bún Bò Cô Hạnh Logo" class="hero-logo-img">
+    </div>
     <div class="hero-eyebrow">Gia truyền từ Quảng Ngãi</div>
     <h1 class="hero-title">
       <span class="hero-title-top">Bún Bò</span>
@@ -757,8 +794,13 @@
   <div class="home-footer">
     <div class="hf-grid">
       <div>
-        <div class="hf-brand-name">Cô Hạnh</div>
-        <div class="hf-brand-sub">Bún Bò Gia Truyền · Since 2006</div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+          <img src="images/logo.png" alt="Logo Bún Bò Cô Hạnh" style="width:56px;height:56px;object-fit:cover;border-radius:12px;border:1.5px solid rgba(245,166,35,.35);box-shadow:0 0 16px rgba(245,166,35,.2);flex-shrink:0">
+          <div>
+            <div class="hf-brand-name">Cô Hạnh</div>
+            <div class="hf-brand-sub">Bún Bò Gia Truyền · Since 2006</div>
+          </div>
+        </div>
         <div class="hf-brand-desc">Công thức gia truyền từ Quảng Ngãi<br>Duy nhất tại 190–192 Hà Tôn Quyền, P. Minh Phụng, TP.HCM</div>
         <div class="hf-social">
           <a href="https://facebook.com/bunbocohanhngonbore" target="_blank" class="hf-fb">
