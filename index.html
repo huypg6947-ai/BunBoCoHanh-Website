@@ -8,289 +8,967 @@
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+  <style>
+  /* ── IMMERSIVE HOMEPAGE ── */
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body.home-body {
+    background: #0d0500;
+    color: #f5ede0;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Canvas for particle/ripple effect */
+  #canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* NAV */
+  .home-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 50;
+    padding: 22px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(13,5,0,.8) 0%, transparent 100%);
+  }
+  .home-logo {
+    display: flex; flex-direction: column; line-height: 1.1; cursor: pointer;
+    text-decoration: none;
+  }
+  .home-logo-sub {
+    font-size: 9px; font-weight: 700; letter-spacing: .25em;
+    color: #C0724A; text-transform: uppercase;
+  }
+  .home-logo-main {
+    font-size: 22px; font-weight: 800;
+    color: #f5ede0;
+    letter-spacing: .02em;
+  }
+  .home-nav-links {
+    display: flex; gap: 6px; align-items: center; list-style: none;
+  }
+  .home-nav-links a {
+    font-size: 13px; font-weight: 500;
+    color: rgba(245,237,224,.65);
+    padding: 7px 13px; border-radius: 8px;
+    text-decoration: none;
+    transition: color .2s, background .2s;
+  }
+  .home-nav-links a:hover { color: #f5ede0; background: rgba(255,255,255,.06); }
+  .home-nav-links .nav-order-btn {
+    background: #C0392B;
+    color: #fff !important;
+    padding: 8px 18px;
+    border-radius: 9px;
+    font-weight: 700;
+    transition: background .2s !important;
+  }
+  .home-nav-links .nav-order-btn:hover { background: #96281B !important; }
+
+  .hamburger-home {
+    display: none;
+    flex-direction: column; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 8px;
+  }
+  .hamburger-home span {
+    display: block; width: 22px; height: 2px;
+    background: #f5ede0; border-radius: 2px;
+  }
+
+  /* ── HERO SECTION ── */
+  .home-hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 28px;
+    z-index: 1;
+  }
+
+  /* Radial glow behind title */
+  .hero-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -55%);
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(192,57,43,.18) 0%, rgba(192,114,74,.08) 40%, transparent 70%);
+    pointer-events: none;
+    animation: glowPulse 4s ease-in-out infinite;
+  }
+  @keyframes glowPulse {
+    0%, 100% { opacity: .7; transform: translate(-50%,-55%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%,-55%) scale(1.08); }
+  }
+
+  /* Steam particles */
+  .steam-wrap {
+    position: absolute;
+    top: 35%; left: 50%;
+    transform: translateX(-50%);
+    width: 200px; height: 200px;
+    pointer-events: none;
+  }
+  .steam {
+    position: absolute;
+    bottom: 0;
+    width: 3px; border-radius: 2px;
+    background: linear-gradient(to top, rgba(245,237,224,.4), transparent);
+    animation: steamRise 3s ease-in infinite;
+    opacity: 0;
+  }
+  .steam:nth-child(1) { left: 40px; height: 60px; animation-delay: 0s; animation-duration: 2.8s; }
+  .steam:nth-child(2) { left: 70px; height: 80px; animation-delay: .6s; animation-duration: 3.2s; }
+  .steam:nth-child(3) { left: 100px; height: 70px; animation-delay: 1.2s; animation-duration: 2.6s; }
+  .steam:nth-child(4) { left: 130px; height: 65px; animation-delay: .4s; animation-duration: 3s; }
+  .steam:nth-child(5) { left: 160px; height: 75px; animation-delay: .9s; animation-duration: 2.9s; }
+  @keyframes steamRise {
+    0% { opacity: 0; transform: translateY(0) scaleX(1); }
+    20% { opacity: .5; }
+    80% { opacity: .2; }
+    100% { opacity: 0; transform: translateY(-100px) scaleX(2) translateX(10px); }
+  }
+
+  /* Bowl image glow */
+  .bowl-ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -55%);
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    border: 1px solid rgba(192,114,74,.2);
+    box-shadow: 0 0 60px rgba(192,57,43,.15), inset 0 0 60px rgba(192,57,43,.05);
+    animation: ringPulse 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .bowl-ring-2 {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -55%);
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    border: 1px solid rgba(192,114,74,.08);
+    animation: ringPulse 4s ease-in-out infinite .5s;
+    pointer-events: none;
+  }
+  @keyframes ringPulse {
+    0%, 100% { opacity: .6; transform: translate(-50%,-55%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%,-55%) scale(1.04); }
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 800px; }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .25em; text-transform: uppercase;
+    color: #C0724A;
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeUp .8s ease .3s forwards;
+  }
+  .hero-eyebrow::before,
+  .hero-eyebrow::after {
+    content: '';
+    display: block; width: 32px; height: 1px;
+    background: #C0724A; opacity: .6;
+  }
+
+  .hero-title {
+    font-size: clamp(64px, 13vw, 140px);
+    font-weight: 900;
+    line-height: .88;
+    letter-spacing: -.03em;
+    margin-bottom: 12px;
+    opacity: 0; animation: fadeUp .9s ease .5s forwards;
+  }
+  .hero-title-top {
+    display: block;
+    color: rgba(245,237,224,.55);
+    font-size: clamp(20px, 4vw, 44px);
+    font-weight: 300;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .hero-title-name {
+    display: block;
+    background: linear-gradient(135deg, #f5ede0 0%, #e8c9a0 40%, #C0724A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 30px rgba(192,114,74,.4));
+  }
+
+  .hero-sub {
+    font-size: clamp(14px, 1.8vw, 17px);
+    font-weight: 300;
+    color: rgba(245,237,224,.55);
+    letter-spacing: .04em;
+    margin-bottom: 48px;
+    line-height: 1.8;
+    opacity: 0; animation: fadeUp .9s ease .7s forwards;
+  }
+
+  .hero-cta-group {
+    display: flex; gap: 14px;
+    justify-content: center; flex-wrap: wrap;
+    margin-bottom: 64px;
+    opacity: 0; animation: fadeUp .9s ease .9s forwards;
+  }
+  .btn-hero-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #C0392B;
+    color: #fff;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 14px; font-weight: 700;
+    padding: 14px 32px; border-radius: 12px; border: none;
+    cursor: pointer; text-decoration: none;
+    box-shadow: 0 8px 32px rgba(192,57,43,.4);
+    transition: background .2s, transform .15s, box-shadow .2s;
+    letter-spacing: .02em;
+  }
+  .btn-hero-primary:hover { background: #96281B; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(192,57,43,.5); }
+
+  .btn-hero-ghost {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent;
+    color: rgba(245,237,224,.8);
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 14px; font-weight: 500;
+    padding: 13px 28px; border-radius: 12px;
+    border: 1px solid rgba(245,237,224,.2);
+    cursor: pointer; text-decoration: none;
+    transition: all .2s;
+    letter-spacing: .02em;
+  }
+  .btn-hero-ghost:hover { border-color: rgba(245,237,224,.5); color: #f5ede0; background: rgba(255,255,255,.05); }
+
+  /* Info strip */
+  .hero-info-strip {
+    display: flex; align-items: center;
+    justify-content: center;
+    gap: 0;
+    opacity: 0; animation: fadeUp .9s ease 1.1s forwards;
+  }
+  .his-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 24px;
+    font-size: 12px; font-weight: 500;
+    color: rgba(245,237,224,.5);
+    border: 1px solid rgba(245,237,224,.08);
+    letter-spacing: .05em;
+  }
+  .his-item:first-child { border-radius: 12px 0 0 12px; }
+  .his-item:last-child  { border-radius: 0 12px 12px 0; }
+  .his-dot { width: 6px; height: 6px; border-radius: 50%; background: #C0392B; flex-shrink: 0; box-shadow: 0 0 8px rgba(192,57,43,.8); }
+
+  /* scroll hint */
+  .scroll-hint {
+    position: absolute; bottom: 32px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(245,237,224,.3);
+    opacity: 0; animation: fadeIn 1s ease 2s forwards;
+  }
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, rgba(245,237,224,.3), transparent);
+    animation: scrollDrop 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollDrop {
+    0% { transform: scaleY(0); transform-origin: top; opacity: 1; }
+    50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+    100% { transform: scaleY(1); transform-origin: bottom; opacity: 0; }
+  }
+
+  /* ── DISHES SECTION ── */
+  .dishes-section {
+    position: relative; z-index: 1;
+    padding: 120px 0;
+    background: linear-gradient(to bottom, #0d0500 0%, #120800 50%, #0d0500 100%);
+  }
+  .dishes-label {
+    text-align: center;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .25em; text-transform: uppercase;
+    color: #C0724A; margin-bottom: 16px;
+  }
+  .dishes-heading {
+    text-align: center;
+    font-size: clamp(32px, 5vw, 52px); font-weight: 800;
+    color: #f5ede0; margin-bottom: 60px;
+    letter-spacing: -.02em;
+  }
+  .dishes-heading em { font-style: italic; color: #C0724A; }
+
+  .dishes-grid {
+    max-width: 1080px; margin: 0 auto;
+    padding: 0 28px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(245,237,224,.06);
+    border: 1px solid rgba(245,237,224,.06);
+    border-radius: 20px; overflow: hidden;
+  }
+  .dish-card {
+    background: rgba(13,5,0,.8);
+    padding: 36px 28px;
+    transition: background .3s;
+    cursor: pointer;
+    position: relative; overflow: hidden;
+  }
+  .dish-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(192,57,43,.08) 0%, transparent 60%);
+    opacity: 0; transition: opacity .3s;
+  }
+  .dish-card:hover { background: rgba(30,12,4,.9); }
+  .dish-card:hover::before { opacity: 1; }
+  .dish-card.featured { background: rgba(192,57,43,.08); }
+  .dish-badge {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: #C0392B; background: rgba(192,57,43,.15);
+    border: 1px solid rgba(192,57,43,.3);
+    padding: 3px 12px; border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .dish-emoji { font-size: 32px; margin-bottom: 14px; display: block; }
+  .dish-name {
+    font-size: 18px; font-weight: 700; color: #f5ede0;
+    margin-bottom: 8px; letter-spacing: -.01em;
+  }
+  .dish-desc { font-size: 13px; font-weight: 300; color: rgba(245,237,224,.5); line-height: 1.65; margin-bottom: 16px; }
+  .dish-price { font-size: 22px; font-weight: 800; color: #C0724A; }
+  .dish-divider { grid-column: 1 / -1; height: 1px; background: rgba(245,237,224,.06); }
+
+  /* ── STORY SECTION ── */
+  .story-section {
+    position: relative; z-index: 1;
+    padding: 120px 28px;
+    max-width: 1080px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .story-left {}
+  .story-eyebrow {
+    font-size: 10px; font-weight: 700; letter-spacing: .25em;
+    text-transform: uppercase; color: #C0724A; margin-bottom: 16px;
+  }
+  .story-title {
+    font-size: clamp(30px, 4vw, 46px); font-weight: 800;
+    color: #f5ede0; line-height: 1.15; margin-bottom: 24px;
+    letter-spacing: -.02em;
+  }
+  .story-title em { font-style: italic; color: #C0724A; }
+  .story-body {
+    font-size: 15px; font-weight: 300; color: rgba(245,237,224,.6);
+    line-height: 1.9; margin-bottom: 32px;
+  }
+  .story-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    margin-top: 40px; padding-top: 40px;
+    border-top: 1px solid rgba(245,237,224,.08);
+  }
+  .story-stat-num { font-size: 32px; font-weight: 900; color: #C0724A; }
+  .story-stat-label { font-size: 11px; font-weight: 500; color: rgba(245,237,224,.4); letter-spacing: .08em; text-transform: uppercase; margin-top: 4px; }
+
+  .story-right {
+    position: relative;
+  }
+  .story-img-wrap {
+    border-radius: 20px; overflow: hidden;
+    border: 1px solid rgba(245,237,224,.08);
+    position: relative;
+  }
+  .story-img-wrap img {
+    width: 100%; aspect-ratio: 4/5; object-fit: cover;
+    object-position: center top;
+    filter: brightness(.85) saturate(.9);
+    transition: filter .4s;
+  }
+  .story-img-wrap:hover img { filter: brightness(.95) saturate(1); }
+  .story-img-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(13,5,0,.9) 0%, transparent 100%);
+    padding: 32px 20px 20px;
+    font-size: 13px; font-weight: 500; color: rgba(245,237,224,.8);
+    text-align: center;
+  }
+  .story-glow {
+    position: absolute; top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(192,57,43,.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ── GALLERY SECTION ── */
+  .gallery-dark {
+    padding: 80px 28px 120px;
+    position: relative; z-index: 1;
+  }
+  .gallery-dark .dishes-label { margin-bottom: 16px; }
+  .gallery-dark .dishes-heading { margin-bottom: 40px; }
+  .gallery-dark-grid {
+    max-width: 1080px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 240px 240px;
+    gap: 8px;
+  }
+  .gd-item {
+    position: relative; overflow: hidden;
+    border-radius: 14px; cursor: pointer;
+  }
+  .gd-item--large { grid-row: 1 / 3; }
+  .gd-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(.7) saturate(.8);
+    transition: filter .5s, transform .6s;
+  }
+  .gd-item:hover img { filter: brightness(.9) saturate(1.1); transform: scale(1.05); }
+  .gd-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(13,5,0,.7) 0%, transparent 50%);
+    display: flex; align-items: flex-end; padding: 16px;
+    opacity: 0; transition: opacity .3s;
+  }
+  .gd-item:hover .gd-overlay { opacity: 1; }
+  .gd-overlay span { color: #f5ede0; font-size: 13px; font-weight: 600; }
+
+  /* ── ORDER CTA SECTION ── */
+  .order-cta-section {
+    position: relative; z-index: 1;
+    padding: 100px 28px;
+    text-align: center;
+    background: linear-gradient(to bottom, #0d0500, #1a0800 50%, #0d0500);
+    overflow: hidden;
+  }
+  .order-cta-glow {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, rgba(192,57,43,.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .order-cta-label { font-size: 10px; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; color: #C0724A; margin-bottom: 16px; }
+  .order-cta-title { font-size: clamp(32px, 5vw, 56px); font-weight: 800; color: #f5ede0; margin-bottom: 16px; letter-spacing: -.02em; }
+  .order-cta-sub { font-size: 15px; font-weight: 300; color: rgba(245,237,224,.5); margin-bottom: 40px; line-height: 1.8; }
+  .delivery-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+  .btn-del {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; border-radius: 10px;
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-size: 13px; font-weight: 700;
+    text-decoration: none;
+    transition: transform .15s, box-shadow .2s;
+  }
+  .btn-del:hover { transform: translateY(-2px); }
+  .btn-del.shopee { background: #EE4D2D; color: #fff; box-shadow: 0 4px 20px rgba(238,77,45,.3); }
+  .btn-del.grab   { background: #00B14F; color: #fff; box-shadow: 0 4px 20px rgba(0,177,79,.3); }
+  .btn-del.xanh   { background: #00BCD4; color: #fff; box-shadow: 0 4px 20px rgba(0,188,212,.3); }
+
+  /* ── FOOTER ── */
+  .home-footer {
+    position: relative; z-index: 1;
+    padding: 64px 28px 32px;
+    border-top: 1px solid rgba(245,237,224,.06);
+    max-width: 1080px; margin: 0 auto;
+  }
+  .hf-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1.6fr;
+    gap: 48px; margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(245,237,224,.06);
+  }
+  .hf-brand-name { font-size: 24px; font-weight: 800; color: #f5ede0; margin-bottom: 4px; }
+  .hf-brand-sub  { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #C0724A; margin-bottom: 16px; }
+  .hf-brand-desc { font-size: 13px; font-weight: 300; color: rgba(245,237,224,.4); line-height: 1.75; margin-bottom: 20px; }
+  .hf-social { display: flex; gap: 8px; }
+  .hf-social a {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 7px 13px; border-radius: 8px;
+    font-size: 12px; font-weight: 600; color: #fff;
+    text-decoration: none;
+    transition: opacity .2s, transform .15s;
+  }
+  .hf-social a:hover { opacity: .85; transform: translateY(-1px); }
+  .hf-social a svg { flex-shrink: 0; }
+  .hf-fb { background: #1877F2; }
+  .hf-tt { background: #010101; border: 1px solid rgba(255,255,255,.1); }
+
+  .hf-col h4 { font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #C0724A; margin-bottom: 18px; }
+  .hf-col ul { list-style: none; }
+  .hf-col li { margin-bottom: 10px; }
+  .hf-col a { font-size: 13px; font-weight: 400; color: rgba(245,237,224,.5); text-decoration: none; transition: color .2s; }
+  .hf-col a:hover { color: #f5ede0; }
+  .hf-col p { font-size: 13px; font-weight: 300; color: rgba(245,237,224,.5); margin-bottom: 8px; line-height: 1.6; }
+  .hf-col a.phone-link { color: rgba(245,237,224,.5); text-decoration: none; }
+  .hf-col a.phone-link:hover { color: #f5ede0; }
+
+  .hf-bottom { text-align: center; font-size: 12px; color: rgba(245,237,224,.2); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+
+  /* Scroll reveal */
+  .sr { opacity: 0; transform: translateY(32px); transition: opacity .8s ease, transform .8s ease; }
+  .sr.visible { opacity: 1; transform: translateY(0); }
+  .sr-delay-1 { transition-delay: .1s; }
+  .sr-delay-2 { transition-delay: .2s; }
+  .sr-delay-3 { transition-delay: .3s; }
+  .sr-delay-4 { transition-delay: .4s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .home-nav { padding: 18px 24px; }
+    .home-nav-links { display: none; position: fixed; top: 64px; left: 0; right: 0; background: rgba(13,5,0,.97); flex-direction: column; padding: 20px; gap: 4px; border-bottom: 1px solid rgba(245,237,224,.08); }
+    .home-nav-links.open { display: flex; }
+    .home-nav-links a { padding: 12px 16px; font-size: 15px; }
+    .hamburger-home { display: flex; }
+    .hero-title { font-size: clamp(52px, 14vw, 90px); }
+    .his-item { padding: 10px 14px; font-size: 11px; }
+    .dishes-grid { grid-template-columns: 1fr 1fr; }
+    .story-section { grid-template-columns: 1fr; gap: 48px; }
+    .gallery-dark-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 180px 180px 180px; }
+    .gd-item--large { grid-column: 1/3; grid-row: 1/2; }
+    .hf-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+  @media (max-width: 560px) {
+    .dishes-grid { grid-template-columns: 1fr; }
+    .story-stats { grid-template-columns: repeat(3,1fr); gap: 12px; }
+    .hero-info-strip { flex-direction: column; gap: 4px; align-items: center; }
+    .his-item { border-radius: 10px !important; width: 100%; justify-content: center; }
+  }
+  </style>
 </head>
-<body>
+<body class="home-body">
 
-  <!-- NAV -->
-  <nav class="nav" id="nav">
-    <div class="nav-inner">
-      <a href="index.html" class="logo">
-        <span class="logo-vn">BÚN BÒ</span>
-        <span class="logo-name">Cô Hạnh</span>
-      </a>
-      <button class="hamburger" id="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-links" id="nav-links">
-        <li><a href="index.html" class="active">Trang chủ</a></li>
-        <li><a href="menu.html">Thực đơn</a></li>
-        <li><a href="story.html">Câu chuyện</a></li>
-        <li><a href="reviews.html">Đánh giá</a></li>
-        <li><a href="contact.html">Liên hệ</a></li>
-        <li><a href="order.html" class="nav-order">🛒 Đặt món</a></li>
-        <li><a href="contact.html" class="nav-cta">Chỉ đường</a></li>
-      </ul>
+<canvas id="canvas"></canvas>
+
+<!-- NAV -->
+<nav class="home-nav">
+  <a href="index.html" class="home-logo">
+    <span class="home-logo-sub">Bún Bò</span>
+    <span class="home-logo-main">Cô Hạnh</span>
+  </a>
+  <button class="hamburger-home" id="hbg" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="home-nav-links" id="hnl">
+    <li><a href="index.html">Trang chủ</a></li>
+    <li><a href="menu.html">Thực đơn</a></li>
+    <li><a href="story.html">Câu chuyện</a></li>
+    <li><a href="reviews.html">Đánh giá</a></li>
+    <li><a href="contact.html">Liên hệ</a></li>
+    <li><a href="order.html" class="nav-order-btn">🛒 Đặt món</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="home-hero">
+  <div class="hero-glow"></div>
+  <div class="bowl-ring"></div>
+  <div class="bowl-ring-2"></div>
+  <div class="steam-wrap">
+    <div class="steam"></div><div class="steam"></div>
+    <div class="steam"></div><div class="steam"></div><div class="steam"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Gia truyền từ Quảng Ngãi</div>
+    <h1 class="hero-title">
+      <span class="hero-title-top">Bún Bò</span>
+      <span class="hero-title-name">Cô Hạnh</span>
+    </h1>
+    <p class="hero-sub">
+      Hơn 17 năm — Một địa chỉ — Một hương vị không đổi<br>
+      190–192 Hà Tôn Quyền, P. Minh Phụng, Quận 11
+    </p>
+    <div class="hero-cta-group">
+      <a href="order.html" class="btn-hero-primary">🛒 Đặt món ngay</a>
+      <a href="menu.html"  class="btn-hero-ghost">Xem thực đơn →</a>
     </div>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-bg">
-      <div class="hero-pattern"></div>
+    <div class="hero-info-strip">
+      <div class="his-item"><div class="his-dot"></div> 6:30 – 22:00 hằng ngày</div>
+      <div class="his-item"><div class="his-dot"></div> 55k – 150k / người</div>
+      <div class="his-item"><div class="his-dot"></div> ⭐ 4.4/5 Google Maps</div>
     </div>
-    <div class="hero-content">
-      <div class="hero-badge">✦ Hơn 17 năm thâm niên ✦</div>
-      <h1 class="hero-title">
-        <span class="hero-title-top">BÚN BÒ</span>
-        <span class="hero-title-main">Cô Hạnh</span>
-      </h1>
-      <p class="hero-sub">Công thức gia truyền từ Quảng Ngãi<br>Duy nhất 1 địa chỉ — Không chi nhánh</p>
-      <div class="hero-actions">
-        <a href="order.html" class="btn-primary">🛒 Đặt món ngay</a>
-        <a href="menu.html" class="btn-secondary">Xem thực đơn</a>
-        <a href="contact.html" class="btn-secondary">Chỉ đường</a>
-      </div>
-      <div class="hero-info-bar">
-        <div class="hero-info-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <span>6:30 – 22:00</span>
-        </div>
-        <div class="hero-info-divider"></div>
-        <div class="hero-info-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          <span>190–192 Hà Tôn Quyền, Q.11</span>
-        </div>
-        <div class="hero-info-divider"></div>
-        <div class="hero-info-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          <span>4.4 / 5 Google Maps</span>
-        </div>
-      </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Cuộn xuống</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- DISHES -->
+<section class="dishes-section">
+  <p class="dishes-label sr">Thực đơn</p>
+  <h2 class="dishes-heading sr">Những tô bún <em>được yêu thích</em></h2>
+  <div class="dishes-grid">
+
+    <div class="dish-card featured sr sr-delay-1">
+      <div class="dish-badge">👑 Siêu Cấp Vô Địch</div>
+      <span class="dish-emoji">🏆</span>
+      <div class="dish-name">Xương + Giò + Tái + Nạm + Gân + Chả</div>
+      <div class="dish-desc">6 topping đầy đủ — dành cho người ăn khoẻ nhất quán</div>
+      <div class="dish-price">150.000đ</div>
     </div>
-    <div class="hero-scroll-hint">
-      <span>Cuộn xuống</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+
+    <div class="dish-card sr sr-delay-2">
+      <span class="dish-badge">⭐ Bán chạy nhất</span>
+      <span class="dish-emoji">🍜</span>
+      <div class="dish-name">Xương, Nạm, Chả</div>
+      <div class="dish-desc">Combo được yêu thích nhất — cân bằng hương vị hoàn hảo</div>
+      <div class="dish-price">70.000đ</div>
     </div>
-  </section>
 
-  <!-- ABOUT STRIP -->
-  <section class="about-strip">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-text">
-          <div class="section-eyebrow">Về chúng tôi</div>
-          <h2 class="section-title">Hương vị quê nhà<br>giữa lòng Sài Gòn</h2>
-          <p>Từ gánh bún bò nhỏ năm 2007, Cô Hạnh đã gìn giữ nguyên vẹn công thức gia truyền mang từ Quảng Ngãi — nước lèo ninh xương bò 100% nguyên chất, thoang thoảng sả gừng, sợi bún tươi mềm mại cùng những nguyên liệu chọn lọc trong ngày.</p>
-          <p>Một địa chỉ, một hương vị, mười bảy năm không đổi.</p>
-          <a href="story.html" class="link-arrow">Đọc câu chuyện <span>→</span></a>
-        </div>
-        <div class="about-stats">
-          <div class="stat-card">
-            <div class="stat-num">17+</div>
-            <div class="stat-label">Năm thâm niên</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">4.4★</div>
-            <div class="stat-label">Google Maps</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">1</div>
-            <div class="stat-label">Địa chỉ duy nhất</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">50–100k</div>
-            <div class="stat-label">VND / người</div>
-          </div>
-        </div>
-      </div>
+    <div class="dish-card sr sr-delay-3">
+      <span class="dish-emoji">🦴</span>
+      <div class="dish-name">Xương Bò</div>
+      <div class="dish-desc">Thuần xương bò hầm nhừ, nước lèo ngọt tự nhiên</div>
+      <div class="dish-price">65.000đ</div>
     </div>
-  </section>
 
-  <!-- MENU PREVIEW -->
-  <section class="menu-preview">
-    <div class="container">
-      <div class="section-header-centered">
-        <div class="section-eyebrow">Thực đơn</div>
-        <h2 class="section-title">Những tô bún được yêu thích</h2>
-      </div>
-      <div class="menu-cards">
+    <div class="dish-divider"></div>
 
-        <div class="menu-card featured">
-          <div class="menu-card-badge">👑 Siêu Cấp Vô Địch</div>
-          <div class="menu-card-emoji">🏆</div>
-          <h3>Xương + Giò + Tái + Nạm + Gân + Chả</h3>
-          <p>Đầy đủ 6 topping trong một tô siêu to — dành cho người ăn khoẻ nhất!</p>
-          <div class="menu-card-price">150.000đ</div>
-        </div>
-
-        <div class="menu-card featured">
-          <div class="menu-card-badge">⭐ Bán chạy nhất</div>
-          <div class="menu-card-emoji">🍜</div>
-          <h3>Xương, Nạm, Chả</h3>
-          <p>Combo được yêu thích nhất — xương hầm, nạm bò thấm vị, chả heo thơm ngon</p>
-          <div class="menu-card-price">70.000đ</div>
-        </div>
-
-        <div class="menu-card">
-          <div class="menu-card-emoji">🦴</div>
-          <h3>Xương Bò</h3>
-          <p>Thuần xương bò hầm nhừ, nước lèo ngọt tự nhiên, thanh vị nhất</p>
-          <div class="menu-card-price">65.000đ</div>
-        </div>
-
-        <div class="menu-card">
-          <div class="menu-card-emoji">🥩</div>
-          <h3>Nạm, Chả</h3>
-          <p>Nạm bò mềm ngọt, chả heo thơm, nước lèo đậm đà gia truyền</p>
-          <div class="menu-card-price">60.000đ</div>
-        </div>
-
-        <div class="menu-card">
-          <div class="menu-card-emoji">🍖</div>
-          <h3>Xương, Giò, Nạm, Chả</h3>
-          <p>Tô Ê Hề 4 topping — ăn no căng bụng, đầy đủ hương vị</p>
-          <div class="menu-card-price">85.000đ</div>
-        </div>
-
-        <div class="menu-card menu-card-cta">
-          <div class="menu-card-emoji">✦</div>
-          <h3>Xem toàn bộ thực đơn</h3>
-          <p>Nhiều lựa chọn topping và size khác nhau</p>
-          <a href="menu.html" class="btn-primary" style="margin-top:1rem;display:inline-block">Xem thực đơn</a>
-        </div>
-
-      </div>
+    <div class="dish-card sr sr-delay-1">
+      <span class="dish-emoji">🔥</span>
+      <div class="dish-name">Xương, Giò, Nạm, Chả</div>
+      <div class="dish-desc">Tô Ê Hề 4 topping — no căng bụng, đủ mọi hương vị</div>
+      <div class="dish-price">85.000đ</div>
     </div>
-  </section>
 
-  <!-- PHOTO GALLERY -->
-  <section class="gallery-section">
-    <div class="container">
-      <div class="section-header-centered">
-        <div class="section-eyebrow">Hình ảnh thực tế</div>
-        <h2 class="section-title">Nhìn là thèm ngay</h2>
-      </div>
-      <div class="gallery-grid">
-        <div class="gallery-item gallery-item--large">
-          <img src="images/bowl-1.jpeg" alt="Tô bún bò Cô Hạnh với nạm, tái, chả" loading="lazy">
-          <div class="gallery-overlay"><span>Tô nạm, tái, chả</span></div>
-        </div>
-        <div class="gallery-item">
-          <img src="images/bowl-2.jpeg" alt="Nhiều tô bún bò Cô Hạnh trên bàn" loading="lazy">
-          <div class="gallery-overlay"><span>Đông vui cùng bạn bè</span></div>
-        </div>
-        <div class="gallery-item">
-          <img src="images/bowl-3.jpeg" alt="Tô bún bò xương giò Cô Hạnh" loading="lazy">
-          <div class="gallery-overlay"><span>Tô xương, giò heo</span></div>
-        </div>
-        <div class="gallery-item">
-          <img src="images/bowl-4.jpeg" alt="Tô bún bò nước lèo đậm đà" loading="lazy">
-          <div class="gallery-overlay"><span>Nước lèo ninh xương bò</span></div>
-        </div>
-        <div class="gallery-item">
-          <img src="images/bowl-5.jpeg" alt="Bò kho bánh mì Cô Hạnh" loading="lazy">
-          <div class="gallery-overlay"><span>Bò kho bánh mì</span></div>
-        </div>
-      </div>
+    <div class="dish-card sr sr-delay-2">
+      <span class="dish-emoji">🥩</span>
+      <div class="dish-name">Nạm, Chả</div>
+      <div class="dish-desc">Nạm bò mềm ngọt, chả heo thơm đậm đà</div>
+      <div class="dish-price">60.000đ</div>
     </div>
-  </section>
 
-  <!-- WHY US -->
-  <section class="why-us">
-    <div class="container">
-      <div class="section-header-centered">
-        <div class="section-eyebrow">Tại sao chọn chúng tôi</div>
-        <h2 class="section-title">Điều làm nên khác biệt</h2>
-      </div>
-      <div class="why-grid">
-        <div class="why-item">
-          <div class="why-icon">🔥</div>
-          <h3>Nước lèo ninh xương bò</h3>
-          <p>100% xương bò tươi, ninh nhiều giờ, ngọt thanh tự nhiên không dùng bột ngọt.</p>
-        </div>
-        <div class="why-item">
-          <div class="why-icon">📍</div>
-          <h3>Chỉ 1 địa chỉ duy nhất</h3>
-          <p>Không nhượng quyền, không chi nhánh — đảm bảo hương vị chuẩn nhất từ Cô Hạnh.</p>
-        </div>
-        <div class="why-item">
-          <div class="why-icon">🌿</div>
-          <h3>Nguyên liệu tươi mỗi ngày</h3>
-          <p>Thịt bò nhập trong ngày, rau sống tươi ngon, bún tươi mềm mại.</p>
-        </div>
-        <div class="why-item">
-          <div class="why-icon">💛</div>
-          <h3>Công thức Quảng Ngãi</h3>
-          <p>Hương vị gốc quê nhà, giữ nguyên cách nấu truyền thống hơn 17 năm.</p>
-        </div>
-      </div>
+    <div class="dish-card sr sr-delay-3">
+      <span class="dish-emoji">🍛</span>
+      <div class="dish-name">Giò Heo</div>
+      <div class="dish-desc">Giò heo béo ngậy mềm tan, nước lèo thơm sả gừng</div>
+      <div class="dish-price">60.000đ</div>
     </div>
-  </section>
 
-  <!-- CTA BANNER -->
-  <section class="cta-banner">
-    <div class="container">
-      <div class="cta-inner">
+  </div>
+  <div style="text-align:center;margin-top:40px" class="sr">
+    <a href="menu.html" class="btn-hero-ghost">Xem toàn bộ thực đơn →</a>
+  </div>
+</section>
+
+<!-- STORY -->
+<section style="background:linear-gradient(to bottom,#0d0500,#120800,#0d0500);position:relative;z-index:1">
+  <div class="story-section">
+    <div class="story-left">
+      <p class="story-eyebrow sr">Câu chuyện</p>
+      <h2 class="story-title sr">Một gánh bún nhỏ,<br><em>mười bảy năm không đổi</em></h2>
+      <p class="story-body sr">Từ năm 2007, Cô Hạnh mang theo công thức gia truyền từ Quảng Ngãi vào Sài Gòn. Nước lèo ninh xương bò 100% nguyên chất, sả gừng thơm nức, nguyên liệu tươi chọn lọc mỗi ngày.</p>
+      <p class="story-body sr">Chưa một lần nhượng quyền. Chưa một lần mở chi nhánh. Vì Cô Hạnh muốn tự tay giám sát từng nồi nước lèo, từng tô bún phục vụ khách.</p>
+      <a href="story.html" class="btn-hero-ghost sr" style="margin-top:8px">Đọc câu chuyện →</a>
+      <div class="story-stats sr">
         <div>
-          <h2>Đặt món online</h2>
-          <p>Không ra khỏi nhà vẫn thưởng thức được hương vị Cô Hạnh</p>
+          <div class="story-stat-num">17+</div>
+          <div class="story-stat-label">Năm thâm niên</div>
         </div>
-        <div class="cta-buttons">
-          <a href="https://shopeefood.vn/u/etMS2CG" target="_blank" class="btn-delivery shopeefood">🛵 ShopeeFood</a>
-          <a href="https://r.grab.com/g/6-20260529_210311_03A179013CF245B08ACE6A8EB59661BD_MEXMPS-5-C4EHALB1VN5WG6" target="_blank" class="btn-delivery grabfood">🟢 GrabFood</a>
-          <a href="https://xanhsmngon.onelink.me/14WJ/dlx24sev" target="_blank" class="btn-delivery greensm">🌿 Xanh SM Ngon</a>
+        <div>
+          <div class="story-stat-num">4.4★</div>
+          <div class="story-stat-label">Google Maps</div>
+        </div>
+        <div>
+          <div class="story-stat-num">1</div>
+          <div class="story-stat-label">Địa chỉ duy nhất</div>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="logo">
-            <span class="logo-vn">BÚN BÒ</span>
-            <span class="logo-name">Cô Hạnh</span>
-          </div>
-          <p>Công thức gia truyền từ Quảng Ngãi<br>Duy nhất tại Quận 11, TP.HCM</p>
-                    <div class="social-links">
-            <a href="https://facebook.com/bunbocohanhngonbore" target="_blank" class="social-fb">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-              <span>Facebook</span>
-            </a>
-            <a href="https://www.tiktok.com/@bunbocohanhsince2006" target="_blank" class="social-tt">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
-              <span>TikTok</span>
-            </a>
-          </div>
-        </div>
-        <div class="footer-links">
-          <h4>Điều hướng</h4>
-          <ul>
-            <li><a href="index.html">Trang chủ</a></li>
-            <li><a href="menu.html">Thực đơn</a></li>
-            <li><a href="story.html">Câu chuyện</a></li>
-            <li><a href="reviews.html">Đánh giá</a></li>
-            <li><a href="contact.html">Liên hệ</a></li>
-          </ul>
-        </div>
-        <div class="footer-contact">
-          <h4>Thông tin</h4>
-          <p>📍 190–192 Hà Tôn Quyền, P. Minh Phụng, Q.11, TP.HCM</p>
-          <p>🕐 6:30 – 22:00 hằng ngày</p>
-          <p>💰 55.000 – 150.000đ / người</p>
-          <p>⭐ 4.4/5 Google Maps</p>
-          <p>📞 <a href="tel:0349171873" style="color:rgba(255,255,255,0.65)">0349 171 873</a> – Cô Hạnh</p>
-          <p>📞 <a href="tel:0326611510" style="color:rgba(255,255,255,0.65)">0326 611 510</a> – Hotline</p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2025 Bún Bò Cô Hạnh. Duy nhất tại 190–192 Hà Tôn Quyền, Quận 11.</p>
+    <div class="story-right sr">
+      <div class="story-glow"></div>
+      <div class="story-img-wrap">
+        <img src="images/cohanh-owner.png" alt="Cô Hạnh chủ quán cùng cầu thủ đội tuyển Việt Nam">
+        <div class="story-img-caption">Cô Hạnh cùng các cầu thủ đội tuyển bóng đá Quốc gia Việt Nam</div>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <script src="main.js"></script>
+<!-- GALLERY -->
+<section class="gallery-dark">
+  <p class="dishes-label sr">Hình ảnh thực tế</p>
+  <h2 class="dishes-heading sr">Nhìn là <em>thèm ngay</em></h2>
+  <div class="gallery-dark-grid">
+    <div class="gd-item gd-item--large sr">
+      <img src="images/bowl-1.jpeg" alt="Tô bún bò nạm tái chả">
+      <div class="gd-overlay"><span>Tô nạm, tái, chả</span></div>
+    </div>
+    <div class="gd-item sr sr-delay-1">
+      <img src="images/bowl-2.jpeg" alt="Nhiều tô bún bò trên bàn">
+      <div class="gd-overlay"><span>Đông vui cùng bạn bè</span></div>
+    </div>
+    <div class="gd-item sr sr-delay-2">
+      <img src="images/bowl-3.jpeg" alt="Tô xương giò heo">
+      <div class="gd-overlay"><span>Tô xương, giò heo</span></div>
+    </div>
+    <div class="gd-item sr sr-delay-1">
+      <img src="images/bowl-4.jpeg" alt="Nước lèo đậm đà">
+      <div class="gd-overlay"><span>Nước lèo ninh xương bò</span></div>
+    </div>
+    <div class="gd-item sr sr-delay-2">
+      <img src="images/bowl-5.jpeg" alt="Bò kho bánh mì">
+      <div class="gd-overlay"><span>Bò kho bánh mì</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER CTA -->
+<section class="order-cta-section">
+  <div class="order-cta-glow"></div>
+  <p class="order-cta-label sr">Đặt món</p>
+  <h2 class="order-cta-title sr">Thưởng thức tại nhà</h2>
+  <p class="order-cta-sub sr">Giao hàng tận nơi qua các ứng dụng<br>hoặc đặt trực tiếp tại website</p>
+  <div class="delivery-btns sr">
+    <a href="https://shopeefood.vn/u/etMS2CG" target="_blank" class="btn-del shopee">🛵 ShopeeFood</a>
+    <a href="https://r.grab.com/g/6-20260529_210311_03A179013CF245B08ACE6A8EB59661BD_MEXMPS-5-C4EHALB1VN5WG6" target="_blank" class="btn-del grab">🟢 GrabFood</a>
+    <a href="https://xanhsmngon.onelink.me/14WJ/dlx24sev" target="_blank" class="btn-del xanh">🌿 Xanh SM Ngon</a>
+  </div>
+  <div class="sr" style="margin-top:12px">
+    <a href="order.html" class="btn-hero-primary">🛒 Đặt món trực tiếp</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#0d0500;position:relative;z-index:1">
+  <div class="home-footer">
+    <div class="hf-grid">
+      <div>
+        <div class="hf-brand-name">Cô Hạnh</div>
+        <div class="hf-brand-sub">Bún Bò Gia Truyền · Since 2007</div>
+        <div class="hf-brand-desc">Công thức gia truyền từ Quảng Ngãi<br>Duy nhất tại 190–192 Hà Tôn Quyền, P. Minh Phụng, TP.HCM</div>
+        <div class="hf-social">
+          <a href="https://facebook.com/bunbocohanhngonbore" target="_blank" class="hf-fb">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            Facebook
+          </a>
+          <a href="https://www.tiktok.com/@bunbocohanhsince2006" target="_blank" class="hf-tt">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
+            TikTok
+          </a>
+        </div>
+      </div>
+      <div class="hf-col">
+        <h4>Điều hướng</h4>
+        <ul>
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="menu.html">Thực đơn</a></li>
+          <li><a href="story.html">Câu chuyện</a></li>
+          <li><a href="reviews.html">Đánh giá</a></li>
+          <li><a href="contact.html">Liên hệ</a></li>
+          <li><a href="order.html">🛒 Đặt món</a></li>
+        </ul>
+      </div>
+      <div class="hf-col">
+        <h4>Thông tin</h4>
+        <p>📍 190–192 Hà Tôn Quyền, P. Minh Phụng, Q.11</p>
+        <p>🕐 6:30 – 22:00 hằng ngày</p>
+        <p>💰 55.000 – 150.000đ / người</p>
+        <p>📞 <a href="tel:0349171873" class="phone-link">0349 171 873</a> – Cô Hạnh</p>
+        <p>📞 <a href="tel:0326611510" class="phone-link">0326 611 510</a> – Hotline</p>
+        <p>📶 Wifi: camonquykhach</p>
+      </div>
+    </div>
+    <div class="hf-bottom">© 2025 Bún Bò Cô Hạnh · Không chi nhánh · 190–192 Hà Tôn Quyền, P. Minh Phụng, Quận 11</div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+// ── PARTICLE / RIPPLE CANVAS ──
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+let W, H, mouse = { x: -999, y: -999 };
+const particles = [];
+const ripples = [];
+
+function resize() {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+// Floating particles
+class Particle {
+  constructor() { this.reset(true); }
+  reset(initial = false) {
+    this.x  = Math.random() * W;
+    this.y  = initial ? Math.random() * H : H + 10;
+    this.vx = (Math.random() - .5) * .3;
+    this.vy = -(Math.random() * .4 + .1);
+    this.r  = Math.random() * 1.5 + .3;
+    this.alpha = Math.random() * .4 + .1;
+    this.life = 1;
+    this.decay = Math.random() * .002 + .001;
+    // Warm ember colors
+    const colors = ['192,114,74','192,57,43','245,200,150','255,180,100'];
+    this.color = colors[Math.floor(Math.random() * colors.length)];
+  }
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    // Drift toward mouse slightly
+    const dx = mouse.x - this.x;
+    const dy = mouse.y - this.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
+    if (dist < 160) {
+      this.vx += dx / dist * .015;
+      this.vy += dy / dist * .015;
+    }
+    this.vx *= .995;
+    this.vy *= .995;
+    this.life -= this.decay;
+    if (this.y < -10 || this.life <= 0) this.reset();
+  }
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.alpha * this.life;
+    ctx.fillStyle = `rgb(${this.color})`;
+    ctx.shadowBlur = 6;
+    ctx.shadowColor = `rgba(${this.color},.6)`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+// Ripple on mouse move
+class Ripple {
+  constructor(x, y) {
+    this.x = x; this.y = y;
+    this.r = 0; this.maxR = 80;
+    this.alpha = .5; this.done = false;
+  }
+  update() {
+    this.r += 2.5;
+    this.alpha -= .012;
+    if (this.r > this.maxR || this.alpha <= 0) this.done = true;
+  }
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.alpha;
+    ctx.strokeStyle = `rgba(192,114,74,${this.alpha})`;
+    ctx.lineWidth = 1;
+    ctx.shadowBlur = 12;
+    ctx.shadowColor = 'rgba(192,57,43,.4)';
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+  }
+}
+
+// Init particles
+for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+// Mouse
+let lastRipple = 0;
+window.addEventListener('mousemove', e => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+  const now = Date.now();
+  if (now - lastRipple > 80) {
+    ripples.push(new Ripple(e.clientX, e.clientY));
+    lastRipple = now;
+  }
+});
+
+// Touch support
+window.addEventListener('touchmove', e => {
+  const t = e.touches[0];
+  mouse.x = t.clientX;
+  mouse.y = t.clientY;
+  ripples.push(new Ripple(t.clientX, t.clientY));
+}, { passive: true });
+
+function animate() {
+  ctx.clearRect(0, 0, W, H);
+
+  // Draw connections between nearby particles
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const d  = Math.sqrt(dx*dx + dy*dy);
+      if (d < 90) {
+        ctx.save();
+        ctx.globalAlpha = (1 - d/90) * .07;
+        ctx.strokeStyle = 'rgba(192,114,74,1)';
+        ctx.lineWidth = .5;
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
+  }
+
+  particles.forEach(p => { p.update(); p.draw(); });
+
+  // Ripples
+  for (let i = ripples.length - 1; i >= 0; i--) {
+    ripples[i].update();
+    ripples[i].draw();
+    if (ripples[i].done) ripples.splice(i, 1);
+  }
+
+  requestAnimationFrame(animate);
+}
+animate();
+
+// ── SCROLL REVEAL ──
+const srEls = document.querySelectorAll('.sr');
+const srObs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      srObs.unobserve(e.target);
+    }
+  });
+}, { threshold: .1, rootMargin: '0px 0px -40px 0px' });
+srEls.forEach(el => srObs.observe(el));
+
+// Stagger children
+document.querySelectorAll('.dishes-grid, .gallery-dark-grid').forEach(g => {
+  Array.from(g.children).forEach((c, i) => {
+    c.style.transitionDelay = (i * .06) + 's';
+  });
+});
+
+// ── HAMBURGER ──
+document.getElementById('hbg').addEventListener('click', () => {
+  document.getElementById('hnl').classList.toggle('open');
+});
+</script>
 </body>
 </html>
