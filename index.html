@@ -13,7 +13,7 @@
   * { margin:0; padding:0; box-sizing:border-box; }
 
   body.home-body {
-    background: #0d0500;
+    background: #1A0A00;
     color: #f5ede0;
     font-family: 'Be Vietnam Pro', sans-serif;
     overflow-x: hidden;
@@ -36,7 +36,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(to bottom, rgba(13,5,0,.8) 0%, transparent 100%);
+    background: linear-gradient(to bottom, rgba(26,10,0,.92) 0%, transparent 100%);
   }
   .home-logo {
     display: flex; flex-direction: column; line-height: 1.1; cursor: pointer;
@@ -44,7 +44,7 @@
   }
   .home-logo-sub {
     font-size: 9px; font-weight: 700; letter-spacing: .25em;
-    color: #C0724A; text-transform: uppercase;
+    color: #F5A623; text-transform: uppercase;
   }
   .home-logo-main {
     font-size: 22px; font-weight: 800;
@@ -63,7 +63,7 @@
   }
   .home-nav-links a:hover { color: #f5ede0; background: rgba(255,255,255,.06); }
   .home-nav-links .nav-order-btn {
-    background: #C0392B;
+    background: #E8420A;
     color: #fff !important;
     padding: 8px 18px;
     border-radius: 9px;
@@ -100,7 +100,7 @@
     top: 50%; left: 50%;
     transform: translate(-50%, -55%);
     width: 600px; height: 600px;
-    background: radial-gradient(ellipse, rgba(192,57,43,.18) 0%, rgba(192,114,74,.08) 40%, transparent 70%);
+    background: radial-gradient(ellipse, rgba(232,66,10,.22) 0%, rgba(245,166,35,.1) 40%, transparent 70%);
     pointer-events: none;
     animation: glowPulse 4s ease-in-out infinite;
   }
@@ -144,8 +144,8 @@
     transform: translate(-50%, -55%);
     width: 320px; height: 320px;
     border-radius: 50%;
-    border: 1px solid rgba(192,114,74,.2);
-    box-shadow: 0 0 60px rgba(192,57,43,.15), inset 0 0 60px rgba(192,57,43,.05);
+    border: 1px solid rgba(245,166,35,.25);
+    box-shadow: 0 0 60px rgba(232,66,10,.18), inset 0 0 60px rgba(192,57,43,.05);
     animation: ringPulse 4s ease-in-out infinite;
     pointer-events: none;
   }
@@ -155,7 +155,7 @@
     transform: translate(-50%, -55%);
     width: 420px; height: 420px;
     border-radius: 50%;
-    border: 1px solid rgba(192,114,74,.08);
+    border: 1px solid rgba(245,166,35,.1);
     animation: ringPulse 4s ease-in-out infinite .5s;
     pointer-events: none;
   }
@@ -170,7 +170,7 @@
     display: inline-flex; align-items: center; gap: 12px;
     font-size: 10px; font-weight: 700;
     letter-spacing: .25em; text-transform: uppercase;
-    color: #C0724A;
+    color: #F5A623;
     margin-bottom: 28px;
     opacity: 0; animation: fadeUp .8s ease .3s forwards;
   }
@@ -178,7 +178,7 @@
   .hero-eyebrow::after {
     content: '';
     display: block; width: 32px; height: 1px;
-    background: #C0724A; opacity: .6;
+    background: #F5A623; opacity: .6;
   }
 
   .hero-title {
@@ -200,11 +200,8 @@
   }
   .hero-title-name {
     display: block;
-    background: linear-gradient(135deg, #f5ede0 0%, #e8c9a0 40%, #C0724A 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 30px rgba(192,114,74,.4));
+    color: #FFCF77;
+    text-shadow: 0 0 40px rgba(255,180,60,.6), 0 0 80px rgba(255,120,30,.3);
   }
 
   .hero-sub {
@@ -225,17 +222,17 @@
   }
   .btn-hero-primary {
     display: inline-flex; align-items: center; gap: 8px;
-    background: #C0392B;
+    background: #E8420A;
     color: #fff;
     font-family: 'Be Vietnam Pro', sans-serif;
     font-size: 14px; font-weight: 700;
     padding: 14px 32px; border-radius: 12px; border: none;
     cursor: pointer; text-decoration: none;
-    box-shadow: 0 8px 32px rgba(192,57,43,.4);
+    box-shadow: 0 8px 32px rgba(232,66,10,.45);
     transition: background .2s, transform .15s, box-shadow .2s;
     letter-spacing: .02em;
   }
-  .btn-hero-primary:hover { background: #96281B; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(192,57,43,.5); }
+  .btn-hero-primary:hover { background: #C43009; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(232,66,10,.55); }
 
   .btn-hero-ghost {
     display: inline-flex; align-items: center; gap: 8px;
@@ -268,7 +265,7 @@
   }
   .his-item:first-child { border-radius: 12px 0 0 12px; }
   .his-item:last-child  { border-radius: 0 12px 12px 0; }
-  .his-dot { width: 6px; height: 6px; border-radius: 50%; background: #C0392B; flex-shrink: 0; box-shadow: 0 0 8px rgba(192,57,43,.8); }
+  .his-dot { width: 6px; height: 6px; border-radius: 50%; background: #E8420A; flex-shrink: 0; box-shadow: 0 0 10px rgba(232,66,10,.9); }
 
   /* scroll hint */
   .scroll-hint {
@@ -294,13 +291,13 @@
   .dishes-section {
     position: relative; z-index: 1;
     padding: 120px 0;
-    background: linear-gradient(to bottom, #0d0500 0%, #120800 50%, #0d0500 100%);
+    background: linear-gradient(to bottom, #1A0A00 0%, #220D00 50%, #1A0A00 100%);
   }
   .dishes-label {
     text-align: center;
     font-size: 10px; font-weight: 700;
     letter-spacing: .25em; text-transform: uppercase;
-    color: #C0724A; margin-bottom: 16px;
+    color: #F5A623; margin-bottom: 16px;
   }
   .dishes-heading {
     text-align: center;
@@ -308,7 +305,7 @@
     color: #f5ede0; margin-bottom: 60px;
     letter-spacing: -.02em;
   }
-  .dishes-heading em { font-style: italic; color: #C0724A; }
+  .dishes-heading em { font-style: italic; color: #F5A623; }
 
   .dishes-grid {
     max-width: 1080px; margin: 0 auto;
@@ -330,17 +327,17 @@
   .dish-card::before {
     content: '';
     position: absolute; inset: 0;
-    background: linear-gradient(135deg, rgba(192,57,43,.08) 0%, transparent 60%);
+    background: linear-gradient(135deg, rgba(232,66,10,.1) 0%, transparent 60%);
     opacity: 0; transition: opacity .3s;
   }
   .dish-card:hover { background: rgba(30,12,4,.9); }
   .dish-card:hover::before { opacity: 1; }
-  .dish-card.featured { background: rgba(192,57,43,.08); }
+  .dish-card.featured { background: rgba(232,66,10,.1); }
   .dish-badge {
     display: inline-block; font-size: 10px; font-weight: 700;
     letter-spacing: .1em; text-transform: uppercase;
-    color: #C0392B; background: rgba(192,57,43,.15);
-    border: 1px solid rgba(192,57,43,.3);
+    color: #E8420A; background: rgba(232,66,10,.18);
+    border: 1px solid rgba(232,66,10,.35);
     padding: 3px 12px; border-radius: 20px;
     margin-bottom: 16px;
   }
@@ -350,7 +347,7 @@
     margin-bottom: 8px; letter-spacing: -.01em;
   }
   .dish-desc { font-size: 13px; font-weight: 300; color: rgba(245,237,224,.5); line-height: 1.65; margin-bottom: 16px; }
-  .dish-price { font-size: 22px; font-weight: 800; color: #C0724A; }
+  .dish-price { font-size: 22px; font-weight: 800; color: #F5A623; }
   .dish-divider { grid-column: 1 / -1; height: 1px; background: rgba(245,237,224,.06); }
 
   /* ── STORY SECTION ── */
@@ -364,14 +361,14 @@
   .story-left {}
   .story-eyebrow {
     font-size: 10px; font-weight: 700; letter-spacing: .25em;
-    text-transform: uppercase; color: #C0724A; margin-bottom: 16px;
+    text-transform: uppercase; color: #F5A623; margin-bottom: 16px;
   }
   .story-title {
     font-size: clamp(30px, 4vw, 46px); font-weight: 800;
     color: #f5ede0; line-height: 1.15; margin-bottom: 24px;
     letter-spacing: -.02em;
   }
-  .story-title em { font-style: italic; color: #C0724A; }
+  .story-title em { font-style: italic; color: #F5A623; }
   .story-body {
     font-size: 15px; font-weight: 300; color: rgba(245,237,224,.6);
     line-height: 1.9; margin-bottom: 32px;
@@ -381,7 +378,7 @@
     margin-top: 40px; padding-top: 40px;
     border-top: 1px solid rgba(245,237,224,.08);
   }
-  .story-stat-num { font-size: 32px; font-weight: 900; color: #C0724A; }
+  .story-stat-num { font-size: 32px; font-weight: 900; color: #F5A623; }
   .story-stat-label { font-size: 11px; font-weight: 500; color: rgba(245,237,224,.4); letter-spacing: .08em; text-transform: uppercase; margin-top: 4px; }
 
   .story-right {
@@ -452,17 +449,17 @@
     position: relative; z-index: 1;
     padding: 100px 28px;
     text-align: center;
-    background: linear-gradient(to bottom, #0d0500, #1a0800 50%, #0d0500);
+    background: linear-gradient(to bottom, #1A0A00, #220D00 50%, #1A0A00);
     overflow: hidden;
   }
   .order-cta-glow {
     position: absolute; top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     width: 600px; height: 400px;
-    background: radial-gradient(ellipse, rgba(192,57,43,.15) 0%, transparent 70%);
+    background: radial-gradient(ellipse, rgba(232,66,10,.18) 0%, transparent 70%);
     pointer-events: none;
   }
-  .order-cta-label { font-size: 10px; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; color: #C0724A; margin-bottom: 16px; }
+  .order-cta-label { font-size: 10px; font-weight: 700; letter-spacing: .25em; text-transform: uppercase; color: #F5A623; margin-bottom: 16px; }
   .order-cta-title { font-size: clamp(32px, 5vw, 56px); font-weight: 800; color: #f5ede0; margin-bottom: 16px; letter-spacing: -.02em; }
   .order-cta-sub { font-size: 15px; font-weight: 300; color: rgba(245,237,224,.5); margin-bottom: 40px; line-height: 1.8; }
   .delivery-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
@@ -493,7 +490,7 @@
     border-bottom: 1px solid rgba(245,237,224,.06);
   }
   .hf-brand-name { font-size: 24px; font-weight: 800; color: #f5ede0; margin-bottom: 4px; }
-  .hf-brand-sub  { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #C0724A; margin-bottom: 16px; }
+  .hf-brand-sub  { font-size: 10px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: #F5A623; margin-bottom: 16px; }
   .hf-brand-desc { font-size: 13px; font-weight: 300; color: rgba(245,237,224,.4); line-height: 1.75; margin-bottom: 20px; }
   .hf-social { display: flex; gap: 8px; }
   .hf-social a {
@@ -508,7 +505,7 @@
   .hf-fb { background: #1877F2; }
   .hf-tt { background: #010101; border: 1px solid rgba(255,255,255,.1); }
 
-  .hf-col h4 { font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #C0724A; margin-bottom: 18px; }
+  .hf-col h4 { font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: #F5A623; margin-bottom: 18px; }
   .hf-col ul { list-style: none; }
   .hf-col li { margin-bottom: 10px; }
   .hf-col a { font-size: 13px; font-weight: 400; color: rgba(245,237,224,.5); text-decoration: none; transition: color .2s; }
@@ -517,7 +514,7 @@
   .hf-col a.phone-link { color: rgba(245,237,224,.5); text-decoration: none; }
   .hf-col a.phone-link:hover { color: #f5ede0; }
 
-  .hf-bottom { text-align: center; font-size: 12px; color: rgba(245,237,224,.2); }
+  .hf-bottom { text-align: center; font-size: 12px; color: rgba(245,237,224,.25); }
 
   /* ANIMATIONS */
   @keyframes fadeUp {
@@ -678,7 +675,7 @@
 </section>
 
 <!-- STORY -->
-<section style="background:linear-gradient(to bottom,#0d0500,#120800,#0d0500);position:relative;z-index:1">
+<section style="background:linear-gradient(to bottom,#1A0A00,#220D00,#1A0A00);position:relative;z-index:1">
   <div class="story-section">
     <div class="story-left">
       <p class="story-eyebrow sr">Câu chuyện</p>
@@ -756,7 +753,7 @@
 </section>
 
 <!-- FOOTER -->
-<footer style="background:#0d0500;position:relative;z-index:1">
+<footer style="background:#1A0A00;position:relative;z-index:1">
   <div class="home-footer">
     <div class="hf-grid">
       <div>
@@ -829,7 +826,7 @@ class Particle {
     this.life = 1;
     this.decay = Math.random() * .002 + .001;
     // Warm ember colors
-    const colors = ['192,114,74','192,57,43','245,200,150','255,180,100'];
+    const colors = ['255,166,40','230,90,20','255,210,100','255,140,50','255,200,80'];
     this.color = colors[Math.floor(Math.random() * colors.length)];
   }
   update() {
@@ -876,10 +873,10 @@ class Ripple {
   draw() {
     ctx.save();
     ctx.globalAlpha = this.alpha;
-    ctx.strokeStyle = `rgba(192,114,74,${this.alpha})`;
+    ctx.strokeStyle = `rgba(255,166,40,${this.alpha})`;
     ctx.lineWidth = 1;
     ctx.shadowBlur = 12;
-    ctx.shadowColor = 'rgba(192,57,43,.4)';
+    ctx.shadowColor = 'rgba(255,120,20,.5)';
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
     ctx.stroke();
