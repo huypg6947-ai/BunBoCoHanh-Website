@@ -1,3 +1,46 @@
+
+/* ── TOP SOCIAL BAR ── */
+.top-social-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  height: 36px;
+  background: var(--brown);
+  border-bottom: 1px solid rgba(245,166,35,.2);
+}
+.tsb-inner {
+  max-width: 1080px; margin: 0 auto;
+  padding: 0 28px;
+  height: 100%;
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 16px;
+}
+.tsb-text {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(255,255,255,.35);
+  white-space: nowrap;
+}
+.tsb-links { display: flex; gap: 6px; align-items: center; }
+.tsb-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 11px; border-radius: 6px;
+  font-size: 11px; font-weight: 700;
+  color: #fff !important; text-decoration: none;
+  transition: opacity .2s, transform .15s;
+  letter-spacing: .02em;
+  white-space: nowrap;
+}
+.tsb-btn:hover { opacity: .85; transform: translateY(-1px); }
+.tsb-fb { background: #1877F2; }
+.tsb-tt { background: #222; border: 1px solid rgba(255,255,255,.12); }
+.tsb-ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+@media (max-width: 480px) {
+  .tsb-text { display: none; }
+  .tsb-btn span { display: none; }
+  .tsb-btn { padding: 5px 10px; }
+}
+
 /* =====================================================
    BÚN BÒ CÔ HẠNH
    Font: Be Vietnam Pro — Vietnamese Friendly (UI-UX Pro Max)
@@ -72,6 +115,7 @@ a { color: inherit; text-decoration: none; }
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
+  top: 36px;
   height: var(--nav-h);
   background: rgba(245,240,225,0.94);
   backdrop-filter: blur(16px);
@@ -506,7 +550,7 @@ a { color: inherit; text-decoration: none; }
    PAGE HERO (inner pages)
 ══════════════════════════════ */
 .page-hero {
-  padding: calc(var(--nav-h) + 56px) 28px 56px;
+  padding: calc(var(--nav-h) + 92px) 28px 56px;
   background: linear-gradient(180deg, var(--cream-dark) 0%, var(--cream) 100%);
   text-align: center;
   border-bottom: 1px solid var(--border);
