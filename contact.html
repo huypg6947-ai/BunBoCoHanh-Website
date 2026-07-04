@@ -187,6 +187,130 @@
     </div>
   </section>
 
+  <div id="kol"></div>
+  <!-- KOL/KOC COLLABORATION SECTION -->
+  <section class="kol-section">
+    <div class="container">
+      <div class="kol-inner">
+        <div class="kol-left">
+          <div class="kol-eyebrow">✦ Hợp tác</div>
+          <h2 class="kol-title">Bạn là KOL / KOC?<br>Hãy cùng hợp tác!</h2>
+          <p class="kol-desc">Chúng tôi luôn chào đón các bạn content creator, food reviewer, hay đối tác muốn hợp tác cùng Bún Bò Cô Hạnh.</p>
+          <div class="kol-cards">
+            <div class="kol-card">
+              <div class="kol-card-icon">🎥</div>
+              <div>
+                <div class="kol-card-title">Review & Content</div>
+                <div class="kol-card-desc">Food blogger, TikToker, Youtuber muốn đến quán review thực tế</div>
+              </div>
+            </div>
+            <div class="kol-card">
+              <div class="kol-card-icon">🤝</div>
+              <div>
+                <div class="kol-card-title">Nhượng quyền</div>
+                <div class="kol-card-desc">Quan tâm đến mô hình kinh doanh, muốn mở quán theo hướng hợp tác</div>
+              </div>
+            </div>
+            <div class="kol-card">
+              <div class="kol-card-icon">📜</div>
+              <div>
+                <div class="kol-card-title">Mua công thức</div>
+                <div class="kol-card-desc">Muốn sở hữu bí quyết nước lèo gia truyền hơn 17 năm</div>
+              </div>
+            </div>
+            <div class="kol-card">
+              <div class="kol-card-icon">🛒</div>
+              <div>
+                <div class="kol-card-title">Đặt số lượng lớn</div>
+                <div class="kol-card-desc">Đặt hàng cho sự kiện, tiệc, công ty — giao tận nơi</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="kol-right">
+          <div class="kol-form-card">
+            <h3>Gửi thông tin hợp tác</h3>
+            <p>Điền thông tin bên dưới, Cô Hạnh sẽ liên hệ lại trong 24 giờ</p>
+            <div class="kol-form">
+              <div class="kf-group">
+                <label>Họ tên *</label>
+                <input type="text" id="kol-name" placeholder="Nguyễn Văn A">
+              </div>
+              <div class="kf-group">
+                <label>Số điện thoại / Zalo *</label>
+                <input type="tel" id="kol-phone" placeholder="09xxxxxxxx">
+              </div>
+              <div class="kf-group">
+                <label>Kênh / Nền tảng</label>
+                <input type="text" id="kol-platform" placeholder="TikTok, Instagram, YouTube...">
+              </div>
+              <div class="kf-group">
+                <label>Mục đích hợp tác *</label>
+                <select id="kol-purpose">
+                  <option value="">Chọn mục đích...</option>
+                  <option value="review">🎥 Review & Content</option>
+                  <option value="franchise">🤝 Nhượng quyền</option>
+                  <option value="recipe">📜 Mua công thức</option>
+                  <option value="bulk">🛒 Đặt số lượng lớn</option>
+                  <option value="other">💬 Khác</option>
+                </select>
+              </div>
+              <div class="kf-group">
+                <label>Lời nhắn</label>
+                <textarea id="kol-msg" placeholder="Giới thiệu ngắn về bạn hoặc dự án hợp tác..."></textarea>
+              </div>
+              <button class="kol-submit-zalo" onclick="sendKolZalo()">
+                <svg width="18" height="18" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="10" fill="#0068FF"/><text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="24" font-weight="bold" font-family="Arial">Z</text></svg>
+                Gửi qua Zalo
+              </button>
+              <button class="kol-submit-sms" onclick="sendKolSMS()">
+                📱 Gửi qua SMS
+              </button>
+              <p class="kol-note">Hoặc liên hệ trực tiếp: <a href="tel:0349171873">0349 171 873</a> · <a href="tel:0326611510">0326 611 510</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  function buildKolMsg() {
+    const name     = document.getElementById('kol-name').value.trim();
+    const phone    = document.getElementById('kol-phone').value.trim();
+    const platform = document.getElementById('kol-platform').value.trim();
+    const purpose  = document.getElementById('kol-purpose');
+    const purposeText = purpose.options[purpose.selectedIndex].text || '';
+    const msg      = document.getElementById('kol-msg').value.trim();
+    if (!name || !phone || !purpose.value) {
+      alert('Vui lòng điền họ tên, số điện thoại và mục đích hợp tác!');
+      return null;
+    }
+    let text = `🌟 YÊU CẦU HỢP TÁC – BÚN BÒ CÔ HẠNH\n`;
+    text += `──────────────────\n`;
+    text += `👤 Họ tên: ${name}\n`;
+    text += `📞 SĐT/Zalo: ${phone}\n`;
+    if (platform) text += `📱 Kênh: ${platform}\n`;
+    text += `🎯 Mục đích: ${purposeText}\n`;
+    if (msg) text += `💬 Lời nhắn: ${msg}\n`;
+    text += `──────────────────\n`;
+    text += `Gửi từ website bunbocohanh`;
+    return text;
+  }
+  function sendKolZalo() {
+    const msg = buildKolMsg();
+    if (!msg) return;
+    navigator.clipboard && navigator.clipboard.writeText(msg);
+    window.open('https://zalo.me/0349171873', '_blank');
+    alert('✅ Đã sao chép nội dung! Dán vào Zalo và gửi cho Cô Hạnh nhé.');
+  }
+  function sendKolSMS() {
+    const msg = buildKolMsg();
+    if (!msg) return;
+    window.open(`sms:0349171873?body=${encodeURIComponent(msg)}`, '_blank');
+  }
+  </script>
+
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
